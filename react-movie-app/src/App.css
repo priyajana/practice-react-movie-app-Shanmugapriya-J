@@ -1,0 +1,52 @@
+
+
+.movie-container{
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+}
+
+.select-movie  {
+  background-image: linear-gradient(to top left,rgb(29, 77, 39),white);
+  padding: 20px;
+  font-size: 30px;
+  
+  margin-right: 10px;
+}
+
+.movie-card{
+   margin-left: auto;
+   margin-right: 0;
+   margin-top:5px;
+   width: 20rem;
+   padding: 10px;
+   font-size: medium;
+   border:solid rgb(85, 97, 148) 1px;
+   border-radius: 4px;
+}
+label
+{
+  font-size: medium;
+  color:blue;
+}
+
+button{
+  width:12rem;
+  font-size: medium;
+  margin-bottom:20px;
+  background-color: rgb(20, 77, 41);
+}
+
+p{
+    color:black;  
+}
+
+span
+{
+   font-family: "Sofia", sans-serif;
+    font-size: 15px;
+    padding:6px;
+}
