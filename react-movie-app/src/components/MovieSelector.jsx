@@ -86,25 +86,33 @@ export default function MovieSelector()
 
 // Genres to populate the select element
 const genres = ["Action", "Comedy", "Romance","Drama"];
+
 // using state to keep track of genre selection
 const [selectedGenre,setGenre] = useState(genres[0]);
+
 // using state to filter movies based on genre selected.
 const [filteredMovies, setFilteredMovies] = useState([]);
 
 // Display loading msg when fetching movies.
 const [isLoading, setloading] = useState(false);
+
+// Set custom error to show if there is error retrieving movies.
+const [error, seterror] = useState("");
 // Called  when fetch movies button is clicked.
 function fetchMovies()
 {
-   
-   setTimeout(() => {
-      setloading(true);
-     
-    }, 3000); // 3 seconds delay
     setloading(false);
+
    console.log(selectedGenre);
-    setFilteredMovies(movies.filter((movie)=>(movie['genre'].includes(selectedGenre))));   
-   
+
+    if(!isLoading)
+        {
+            setFilteredMovies(movies.filter((movie)=>(movie['genre'].includes(selectedGenre))));
+        }   
+   if(filteredMovies==[])
+    {
+         seterror("No movies in the selected genre.");
+    }
 }
 
 // To set the selected genre to the element 
@@ -114,24 +122,30 @@ function handleChange(e){
 }
     return(
             <div className="select-movie">
+
                 <label>Select a genre: </label>
 
                 <select onChange={handleChange} defaultValue={selectedGenre}>
-                    {genres.map((genre,index)=>(<option key={index} name={genre} value={genre}>{genre}</option>))}
-                </select><br/>
-                {isLoading?<p>Loading.....</p>: <p></p>}
-                <button name="fetch" onClick={fetchMovies}>Fetch Movies</button>
-                {/*error && <p style={{ color: "red" }}>{error}</p>*/}
-                <div>
-                {/*TO ITERATE THE MOVIE LIST AND PASS MOVIE OBJ AS PROP TO MOVIECARD COMPONENT */}
 
-                    {isLoading ? filteredMovies.map(
-                        (movie,index)=>
-                            (<div key={index}>
-                                
-                                <MovieCard movie={movie}/>
-                                
-                             </div>)):[]}
+                    {genres.map((genre,index)=>(<option key={index} name={genre} value={genre}>{genre}</option>))}
+
+                </select><br/>
+
+                {isLoading?<p>Loading.....</p>: <p></p>}
+
+                <button name="fetch" onClick={fetchMovies}>Fetch Movies</button>
+
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <div>
+                        {/*TO ITERATE THE MOVIE LIST AND PASS MOVIE OBJ AS PROP TO MOVIECARD COMPONENT */}
+
+                            {
+                                filteredMovies.map((movie,index)=>
+                                    (<div key={index}>
+                                        
+                                         <MovieCard movie={movie}/>
+                                        
+                                    </div>))}
                 </div>
             </div>
             
