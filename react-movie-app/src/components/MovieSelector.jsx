@@ -88,7 +88,7 @@ export default function MovieSelector()
 const genres = ["Action", "Comedy", "Romance","Drama"];
 
 // using state to keep track of genre selection
-const [selectedGenre,setGenre] = useState(genres[0]);
+const [selectedGenre,setGenre] = useState("");
 
 // using state to filter movies based on genre selected.
 const [filteredMovies, setFilteredMovies] = useState([]);
@@ -109,9 +109,9 @@ function fetchMovies()
         {
             setFilteredMovies(movies.filter((movie)=>(movie['genre'].includes(selectedGenre))));
         }   
-   if(filteredMovies==[])
+   if(selectedGenre === "")
     {
-         seterror("No movies in the selected genre.");
+         seterror("No genre selected, Please select a genre");
     }
 }
 
@@ -125,7 +125,7 @@ function handleChange(e){
 
                 <label>Select a genre: </label>
 
-                <select onChange={handleChange} defaultValue={selectedGenre}>
+                <select onChange={handleChange} /**defaultValue={selectedGenre}**/>
 
                     {genres.map((genre,index)=>(<option key={index} name={genre} value={genre}>{genre}</option>))}
 
@@ -145,7 +145,8 @@ function handleChange(e){
                                         
                                          <MovieCard movie={movie}/>
                                         
-                                    </div>))}
+                                    </div>))
+                            }
                 </div>
             </div>
             
