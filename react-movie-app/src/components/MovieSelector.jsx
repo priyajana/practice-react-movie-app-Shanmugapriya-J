@@ -88,7 +88,7 @@ export default function MovieSelector()
 const genres = ["Action", "Comedy", "Romance","Drama"];
 
 // using state to keep track of genre selection
-const [selectedGenre,setGenre] = useState("");
+const [selectedGenre,setGenre] = useState(genres[0]);
 
 // using state to filter movies based on genre selected.
 const [filteredMovies, setFilteredMovies] = useState([]);
@@ -99,20 +99,32 @@ const [isLoading, setloading] = useState(false);
 // Set custom error to show if there is error retrieving movies.
 const [error, seterror] = useState("");
 // Called  when fetch movies button is clicked.
-function fetchMovies()
-{
-    setloading(false);
 
-   console.log(selectedGenre);
 
-    if(!isLoading)
-        {
-            setFilteredMovies(movies.filter((movie)=>(movie['genre'].includes(selectedGenre))));
-        }   
-   if(selectedGenre === "")
+function displayLoading(){
+    
+    console.log("displaying loading....");
+    if(selectedGenre === "")
     {
          seterror("No genre selected, Please select a genre");
     }
+
+    setloading(true);
+     setTimeout(() => {
+        setloading(false);
+        fetchMovies();
+    }, 3000);
+        
+
+}
+function fetchMovies()
+{
+    
+
+   console.log(selectedGenre);
+    setFilteredMovies(movies.filter((movie)=>(movie['genre'].includes(selectedGenre))));
+           
+   
 }
 
 // To set the selected genre to the element 
@@ -133,7 +145,7 @@ function handleChange(e){
 
                 {isLoading?<p>Loading.....</p>: <p></p>}
 
-                <button name="fetch" onClick={fetchMovies}>Fetch Movies</button>
+                <button name="fetch" onClick={displayLoading}>Fetch Movies</button>
 
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <div>
